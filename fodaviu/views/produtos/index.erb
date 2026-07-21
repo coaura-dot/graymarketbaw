@@ -1,0 +1,48 @@
+<div class="hero-loja">
+  <img src="/images/itens/netherite_sword.png" alt="">
+  <div>
+    <h1 style="margin-bottom:4px;">Loja BAWMC.net</h1>
+    <p style="margin:0;">Itens de elite para dominar o servidor: netherite encantada, tridentes, maças, kits completos e muito mais.</p>
+  </div>
+</div>
+
+<div class="selos-confianca">
+  <span class="selo">Entrega Instantânea</span>
+  <span class="selo">Pagamento Seguro</span>
+  <span class="selo">Vendedores Verificados</span>
+  <span class="selo">Suporte 24/7</span>
+</div>
+
+<form action="/" method="get" class="filtros">
+  <input type="text" name="q" placeholder="Buscar produto..." value="<%= @termo %>">
+  <select name="categoria">
+    <option value="">Todas as categorias</option>
+    <% Produto::CATEGORIAS.each do |cat| %>
+      <option value="<%= cat %>" <%= "selected" if @categoria == cat %>><%= cat %></option>
+    <% end %>
+  </select>
+  <button type="submit" class="botao">Buscar</button>
+</form>
+
+<% if @produtos.empty? %>
+  <p>Nenhum produto encontrado.</p>
+<% else %>
+  <div class="grade-produtos">
+    <% @produtos.each do |produto| %>
+      <div class="card-produto">
+        <a href="/produtos/<%= produto.id %>" class="card-produto-imagem">
+          <img src="/images/itens/<%= icone_produto(produto) %>.png" alt="<%= produto.nome %>">
+        </a>
+        <% if produto.categoria %>
+          <span class="categoria-tag"><%= produto.categoria %></span>
+        <% end %>
+        <h3><a href="/produtos/<%= produto.id %>"><%= produto.nome %></a></h3>
+        <p><%= produto.descricao %></p>
+        <p class="preco">$<%= formatar_preco(produto.preco) %></p>
+        <p class="<%= "estoque-baixo" if produto.estoque <= 3 %>">Estoque: <%= produto.estoque %></p>
+        <p>Vendedor: <%= produto.vendedor.nome %></p>
+        <a href="/produtos/<%= produto.id %>" class="botao">Ver detalhes</a>
+      </div>
+    <% end %>
+  </div>
+<% end %>

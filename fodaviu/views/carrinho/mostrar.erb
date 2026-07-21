@@ -1,0 +1,41 @@
+<h1>Meu Carrinho</h1>
+
+<% if @itens.empty? %>
+  <p>Seu carrinho está vazio. <a href="/">Voltar à loja</a></p>
+<% else %>
+  <div class="tabela-wrap">
+  <table class="tabela-cards">
+    <thead>
+      <tr><th></th><th>Produto</th><th>Preço unitário</th><th>Quantidade</th><th>Subtotal</th><th></th></tr>
+    </thead>
+    <tbody>
+      <% @itens.each do |item| %>
+        <tr>
+          <td class="linha-imagem"><img class="icone-tabela" src="/images/itens/<%= icone_produto(item[:produto]) %>.png" alt=""></td>
+          <td data-label="Produto"><%= item[:produto].nome %></td>
+          <td data-label="Preço unit.">$<%= formatar_preco(item[:produto].preco) %></td>
+          <td data-label="Quantidade"><%= item[:quantidade] %></td>
+          <td data-label="Subtotal">$<%= formatar_preco(item[:produto].preco * item[:quantidade]) %></td>
+          <td>
+            <form action="/carrinho/<%= item[:produto].id %>/remover" method="post">
+              <button type="submit" class="link-botao" style="color:#ff5c5c;">Remover</button>
+            </form>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  </div>
+
+  <h2>Total: $<%= formatar_preco(@total) %></h2>
+
+  <div class="painel" style="max-width:480px;">
+    <form action="/carrinho/finalizar" method="post">
+      <div class="form-grupo">
+        <label for="endereco_entrega">Endereço/coordenadas de entrega (opcional)</label>
+        <input type="text" id="endereco_entrega" name="endereco_entrega" placeholder="Ex: Spawn, x:120 y:70 z:-45">
+      </div>
+      <button type="submit" class="botao">Finalizar compra</button>
+    </form>
+  </div>
+<% end %>

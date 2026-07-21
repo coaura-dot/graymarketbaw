@@ -1,0 +1,33 @@
+<h1>Meus Produtos</h1>
+<a href="/produtos/novo" class="botao">+ Cadastrar novo produto</a>
+
+<% if @produtos.empty? %>
+  <p style="margin-top:16px;">Você ainda não cadastrou nenhum produto.</p>
+<% else %>
+  <div class="tabela-wrap">
+  <table class="tabela-cards">
+    <thead>
+      <tr><th></th><th>Nome</th><th>Categoria</th><th>Preço</th><th>Estoque</th><th>Ações</th></tr>
+    </thead>
+    <tbody>
+      <% @produtos.each do |produto| %>
+        <tr>
+          <td class="linha-imagem"><img class="icone-tabela" src="/images/itens/<%= icone_produto(produto) %>.png" alt=""></td>
+          <td data-label="Nome"><%= produto.nome %></td>
+          <td data-label="Categoria"><%= produto.categoria %></td>
+          <td data-label="Preço">$<%= formatar_preco(produto.preco) %></td>
+          <td data-label="Estoque" class="<%= "estoque-baixo" if produto.estoque <= 3 %>"><%= produto.estoque %></td>
+          <td data-label="Ações">
+            <a href="/produtos/<%= produto.id %>">Ver</a> |
+            <a href="/produtos/<%= produto.id %>/editar">Editar</a> |
+            <form action="/produtos/<%= produto.id %>/excluir" method="post" class="inline"
+                  onsubmit="return confirm('Excluir este produto?');">
+              <button type="submit" class="link-botao" style="color:#ff5c5c;">Excluir</button>
+            </form>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  </div>
+<% end %>

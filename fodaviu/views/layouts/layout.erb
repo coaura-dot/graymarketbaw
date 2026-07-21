@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0b0d12">
+  <title>BAWMC.net Loja</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" type="image/png" href="/images/itens/diamond_sword.png">
+</head>
+<body>
+  <header class="topo">
+    <div class="topo-conteudo">
+      <a href="/" class="logo"><img src="/images/itens/grass_block.png" alt=""> BAWMC<span>.net</span> Loja</a>
+
+      <input type="checkbox" id="menu-toggle" class="menu-toggle">
+      <label for="menu-toggle" class="menu-toggle-label" aria-label="Abrir menu">
+        <svg viewBox="0 0 24 24"><path d="M3 6h18v2H3zM3 11h18v2H3zM3 16h18v2H3z"/></svg>
+      </label>
+
+      <nav>
+        <a href="/">Loja</a>
+        <% if logado? %>
+          <a href="/meus_produtos">Meus Produtos</a>
+          <a href="/vendas_recebidas">Vendas Recebidas</a>
+          <a href="/carrinho" class="destaque">Carrinho (<%= carrinho.values.sum(&:to_i) %>)</a>
+          <a href="/minhas_compras">Minhas Compras</a>
+          <a href="/perfil">Perfil</a>
+          <form action="/logout" method="post" class="inline">
+            <button type="submit" class="link-botao">Sair (<%= usuario_atual.nome %>)</button>
+          </form>
+        <% else %>
+          <a href="/login">Entrar</a>
+          <a href="/cadastro" class="destaque">Cadastrar-se</a>
+        <% end %>
+      </nav>
+    </div>
+  </header>
+
+  <main class="conteudo">
+    <% if session[:sucesso] %>
+      <div class="alerta alerta-sucesso"><%= session.delete(:sucesso) %></div>
+    <% end %>
+    <% if session[:erro] %>
+      <div class="alerta alerta-erro"><%= session.delete(:erro) %></div>
+    <% end %>
+
+    <%= yield %>
+  </main>
+
+  <footer class="rodape">
+    <p>BAWMC.net &mdash; Servidor de Minecraft &copy; 2026. Loja desenvolvida para a disciplina de Programação Web (IFG Campus Anápolis).</p>
+  </footer>
+</body>
+</html>

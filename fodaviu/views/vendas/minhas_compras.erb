@@ -1,0 +1,36 @@
+<h1>Minhas Compras</h1>
+
+<% if @vendas.empty? %>
+  <p>Você ainda não realizou nenhuma compra.</p>
+<% else %>
+  <% @vendas.each do |venda| %>
+    <div class="painel">
+      <div class="pedido-cabecalho">
+        <h3>Pedido #<%= venda.id %></h3>
+        <span class="status-<%= venda.status %>"><%= venda.status.capitalize %></span>
+      </div>
+      <p class="pedido-meta">Data: <%= venda.data %> &nbsp;·&nbsp; Vendedor: <%= venda.vendedor.nome %> &nbsp;·&nbsp; Total: <strong style="color:var(--ouro)">$<%= formatar_preco(venda.valor_total) %></strong></p>
+      <div class="tabela-wrap">
+      <table class="tabela-cards">
+        <thead><tr><th>Produto</th><th>Qtd.</th><th>Preço unit.</th><th>Subtotal</th></tr></thead>
+        <tbody>
+          <% venda.item_vendas.each do |item| %>
+            <tr>
+              <td data-label="Produto"><%= item.produto.nome %></td>
+              <td data-label="Qtd."><%= item.quantidade %></td>
+              <td data-label="Preço unit.">$<%= formatar_preco(item.preco_unitario) %></td>
+              <td data-label="Subtotal">$<%= formatar_preco(item.subtotal) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      </div>
+      <% if venda.cancelavel? %>
+        <form action="/compras/<%= venda.id %>/cancelar" method="post"
+              onsubmit="return confirm('Cancelar este pedido?');">
+          <button type="submit" class="botao botao-perigo">Cancelar pedido</button>
+        </form>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>

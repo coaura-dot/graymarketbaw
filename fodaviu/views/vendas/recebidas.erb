@@ -1,0 +1,37 @@
+<h1>Vendas Recebidas</h1>
+
+<% if @vendas.empty? %>
+  <p>Você ainda não recebeu nenhuma venda.</p>
+<% else %>
+  <% @vendas.each do |venda| %>
+    <div class="painel">
+      <div class="pedido-cabecalho">
+        <h3>Pedido #<%= venda.id %></h3>
+        <span class="status-<%= venda.status %>"><%= venda.status.capitalize %></span>
+      </div>
+      <p class="pedido-meta">Data: <%= venda.data %> &nbsp;·&nbsp; Comprador: <%= venda.comprador.nome %> &nbsp;·&nbsp; Total: <strong style="color:var(--ouro)">$<%= formatar_preco(venda.valor_total) %></strong></p>
+      <div class="tabela-wrap">
+      <table class="tabela-cards">
+        <thead><tr><th>Produto</th><th>Qtd.</th><th>Preço unit.</th><th>Subtotal</th></tr></thead>
+        <tbody>
+          <% venda.item_vendas.each do |item| %>
+            <tr>
+              <td data-label="Produto"><%= item.produto.nome %></td>
+              <td data-label="Qtd."><%= item.quantidade %></td>
+              <td data-label="Preço unit.">$<%= formatar_preco(item.preco_unitario) %></td>
+              <td data-label="Subtotal">$<%= formatar_preco(item.subtotal) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      </div>
+      <% if venda.proximo_status %>
+        <form action="/vendas/<%= venda.id %>/avancar" method="post">
+          <button type="submit" class="botao">Avançar para "<%= venda.proximo_status %>"</button>
+        </form>
+      <% else %>
+        <p>Pedido finalizado.</p>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>
