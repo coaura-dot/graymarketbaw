@@ -13,9 +13,9 @@
         <tr>
           <td class="linha-imagem"><img class="icone-tabela" src="/images/itens/<%= icone_produto(item[:produto]) %>.png" alt=""></td>
           <td data-label="Produto"><%= item[:produto].nome %></td>
-          <td data-label="Preço unit.">$<%= formatar_preco(item[:produto].preco) %></td>
+          <td data-label="Preço unit.">R$<%= formatar_preco(item[:produto].preco) %></td>
           <td data-label="Quantidade"><%= item[:quantidade] %></td>
-          <td data-label="Subtotal">$<%= formatar_preco(item[:produto].preco * item[:quantidade]) %></td>
+          <td data-label="Subtotal">R$<%= formatar_preco(item[:produto].preco * item[:quantidade]) %></td>
           <td>
             <form action="/carrinho/<%= item[:produto].id %>/remover" method="post">
               <button type="submit" class="link-botao" style="color:#ff5c5c;">Remover</button>
@@ -27,7 +27,9 @@
   </table>
   </div>
 
-  <h2>Total: $<%= formatar_preco(@total) %></h2>
+  <h2>Total: R$<%= formatar_preco(@total) %></h2>
+
+  <%= erb :"shared/pagamento", layout: false %>
 
   <div class="painel" style="max-width:480px;">
     <form action="/carrinho/finalizar" method="post">

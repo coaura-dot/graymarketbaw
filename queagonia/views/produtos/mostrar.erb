@@ -8,7 +8,7 @@
   <% end %>
   <h1><%= @produto.nome %></h1>
   <p><%= @produto.descricao %></p>
-  <p class="preco">$<%= formatar_preco(@produto.preco) %></p>
+  <p class="preco">R$<%= formatar_preco(@produto.preco) %></p>
   <p>Estoque disponível: <strong><%= @produto.estoque %></strong></p>
   <p>Vendido por: <strong><%= @produto.vendedor.nome %></strong></p>
 

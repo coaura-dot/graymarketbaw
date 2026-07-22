@@ -1,0 +1,72 @@
+<div class="painel painel-pagamento">
+  <div class="pagamento-cabecalho">
+    <span class="pagamento-icone">💠</span>
+    <div>
+      <h2 style="margin-bottom:2px;">Como pagar seu pedido</h2>
+      <p style="margin:0;">Pagamento via Pix. Entrega liberada após confirmação manual pelo Discord.</p>
+    </div>
+  </div>
+
+  <div class="pagamento-passos">
+    <div class="pagamento-passo">
+      <span class="pagamento-passo-num">1</span>
+      <div>
+        <strong>Pague via Pix</strong>
+        <p>Envie o valor total do pedido para a chave Pix abaixo (e-mail):</p>
+        <div class="pagamento-chave">
+          <code id="chave-pix">gabrielanuneskk@gmail.com</code>
+          <button type="button" class="botao botao-secundario botao-copiar" data-copiar="chave-pix">Copiar chave</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="pagamento-passo">
+      <span class="pagamento-passo-num">2</span>
+      <div>
+        <strong>Envie o comprovante no Discord</strong>
+        <p>Adicione/chame <strong id="discord-user">thatsthee</strong> no Discord e envie o comprovante do Pix, informando qual kit/item você comprou (e o número do pedido, se possível).</p>
+        <div class="pagamento-chave">
+          <button type="button" class="botao botao-secundario botao-copiar" data-copiar="discord-user">Copiar usuário</button>
+          <button type="button" class="botao botao-copiar" data-copiar-mensagem>Copiar mensagem pronta</button>
+        </div>
+        <p class="pagamento-obs">Obs.: links diretos de perfil do Discord só abrem se você já estiver logado. Se o botão não abrir automaticamente, adicione o usuário pela busca do Discord (@thatsthee).</p>
+      </div>
+    </div>
+
+    <div class="pagamento-passo">
+      <span class="pagamento-passo-num">3</span>
+      <div>
+        <strong>Aguarde a liberação</strong>
+        <p>Após a confirmação do pagamento, o vendedor libera a entrega do item combinado no servidor.</p>
+      </div>
+    </div>
+  </div>
+
+  <textarea id="mensagem-pronta" class="mensagem-pronta-oculta" readonly>Olá! Acabei de comprar um item no GrayMarket. Segue o comprovante do Pix. Item comprado: [nome do kit/item aqui]. Pedido nº: [número, se tiver].</textarea>
+</div>
+
+<script>
+(function () {
+  function copiarTexto(texto, botao) {
+    navigator.clipboard.writeText(texto).then(function () {
+      var original = botao.textContent;
+      botao.textContent = "Copiado!";
+      setTimeout(function () { botao.textContent = original; }, 1800);
+    });
+  }
+
+  document.querySelectorAll("[data-copiar]").forEach(function (botao) {
+    botao.addEventListener("click", function () {
+      var alvo = document.getElementById(botao.getAttribute("data-copiar"));
+      if (alvo) copiarTexto(alvo.textContent.trim(), botao);
+    });
+  });
+
+  document.querySelectorAll("[data-copiar-mensagem]").forEach(function (botao) {
+    botao.addEventListener("click", function () {
+      var area = document.getElementById("mensagem-pronta");
+      if (area) copiarTexto(area.value, botao);
+    });
+  });
+})();
+</script>

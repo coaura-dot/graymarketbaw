@@ -15,7 +15,7 @@
           <td class="linha-imagem"><img class="icone-tabela" src="/images/itens/<%= icone_produto(produto) %>.png" alt=""></td>
           <td data-label="Nome"><%= produto.nome %></td>
           <td data-label="Categoria"><%= produto.categoria %></td>
-          <td data-label="Preço">$<%= formatar_preco(produto.preco) %></td>
+          <td data-label="Preço">R$<%= formatar_preco(produto.preco) %></td>
           <td data-label="Estoque" class="<%= "estoque-baixo" if produto.estoque <= 3 %>"><%= produto.estoque %></td>
           <td data-label="Ações">
             <a href="/produtos/<%= produto.id %>">Ver</a> |

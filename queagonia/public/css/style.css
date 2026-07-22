@@ -1,39 +1,42 @@
 /* =========================================================
-   BAWMC.net Loja — tema "Marketplace" (inspirado em
-   marketplaces de itens de servidor estilo DonutSMP)
+   GrayMarket — tema "Underground Marketplace"
+   Paleta grafite/chumbo com acento verde-ácido, inspirada em
+   mercados paralelos e interfaces de terminal moderno.
    ========================================================= */
 
 :root {
-  --bg: #0b0d12;
-  --bg-2: #07080b;
-  --panel: #12151c;
-  --panel-2: #171b24;
-  --panel-3: #1d222c;
-  --borda: #262b36;
-  --borda-forte: #323847;
+  --bg: #0a0b0d;
+  --bg-2: #050506;
+  --panel: #121316;
+  --panel-2: #17181c;
+  --panel-3: #1e2024;
+  --borda: #24262b;
+  --borda-forte: #33363c;
 
-  --texto: #e7e9ee;
-  --texto-fraco: #9198a8;
-  --texto-fraco-2: #6b7280;
+  --texto: #e9eaec;
+  --texto-fraco: #9a9da5;
+  --texto-fraco-2: #6b6e76;
 
-  --laranja: #ff8a3d;
-  --laranja-2: #ff6b1a;
-  --laranja-fraco: rgba(255, 138, 61, .12);
-  --azul: #4d8dff;
+  --laranja: #b9ff3f;
+  --laranja-2: #9ae61f;
+  --laranja-fraco: rgba(185, 255, 63, .10);
+  --azul: #5eb1ff;
   --verde: #2ecc71;
   --amarelo: #f5c518;
   --vermelho: #ef4444;
   --vermelho-fraco: rgba(239, 68, 68, .12);
 
-  --raio: 14px;
+  --ouro: var(--laranja);
+
+  --raio: 16px;
   --raio-peq: 10px;
   --raio-pill: 999px;
 
   --fonte-titulo: "Poppins", "Inter", "Segoe UI", sans-serif;
   --fonte-corpo: "Inter", "Segoe UI", Verdana, sans-serif;
 
-  --sombra: 0 8px 24px rgba(0,0,0,.35);
-  --sombra-forte: 0 16px 40px rgba(0,0,0,.5);
+  --sombra: 0 8px 24px rgba(0,0,0,.45);
+  --sombra-forte: 0 20px 48px rgba(0,0,0,.55);
 }
 
 * { box-sizing: border-box; }
@@ -48,8 +51,8 @@ body {
   color: var(--texto);
   background-color: var(--bg);
   background-image:
-    radial-gradient(circle at 12% -10%, rgba(255,138,61,.14), transparent 40%),
-    radial-gradient(circle at 90% 0%, rgba(77,141,255,.10), transparent 35%);
+    radial-gradient(circle at 12% -10%, rgba(185,255,63,.10), transparent 40%),
+    radial-gradient(circle at 90% 0%, rgba(94,177,255,.09), transparent 35%);
   background-attachment: fixed;
   line-height: 1.6;
   font-size: 15px;
@@ -60,7 +63,7 @@ img { max-width: 100%; }
 a { color: var(--laranja); text-decoration: none; transition: color .15s ease; }
 a:hover { color: var(--laranja-2); text-decoration: none; }
 
-::selection { background: var(--laranja); color: #1a0d05; }
+::selection { background: var(--laranja); color: #0e150a; }
 
 h1, h2, h3 {
   color: #fff;
@@ -155,10 +158,10 @@ nav .link-botao {
 }
 nav .destaque {
   background: linear-gradient(135deg, var(--laranja), var(--laranja-2));
-  color: #1a0d05;
+  color: #0e150a;
   font-weight: 700;
 }
-nav .destaque:hover { filter: brightness(1.08); color: #1a0d05; }
+nav .destaque:hover { filter: brightness(1.08); color: #0e150a; }
 
 .inline { display: inline; }
 
@@ -329,17 +332,17 @@ nav .destaque:hover { filter: brightness(1.08); color: #1a0d05; }
   justify-content: center;
   gap: 6px;
   background: linear-gradient(135deg, var(--laranja), var(--laranja-2));
-  color: #1a0d05;
+  color: #0e150a;
   border: none;
   padding: 12px 22px;
   font-weight: 700;
   cursor: pointer;
   border-radius: var(--raio-peq);
   font-size: .95rem;
-  box-shadow: 0 4px 14px rgba(255,107,26,.35);
+  box-shadow: 0 4px 14px rgba(185,255,63,.25);
   transition: transform .12s ease, box-shadow .12s ease, filter .15s ease;
 }
-.botao:hover { filter: brightness(1.08); text-decoration: none; color: #1a0d05; transform: translateY(-1px); }
+.botao:hover { filter: brightness(1.08); text-decoration: none; color: #0e150a; transform: translateY(-1px); }
 .botao:active { transform: translateY(0); }
 
 .botao-perigo { background: linear-gradient(135deg, #f26565, var(--vermelho)); color: #2a0707; box-shadow: 0 4px 14px rgba(239,68,68,.3); }
@@ -468,6 +471,89 @@ th:first-child, td:first-child { width: 50px; }
   color: transparent;
 }
 .hero-loja p { margin: 0; color: var(--texto-fraco); max-width: 62ch; font-size: 1rem; }
+
+/* ---------- Pagamento (Pix + Discord) ---------- */
+.painel-pagamento {
+  border-color: var(--borda-forte);
+  background: linear-gradient(180deg, var(--panel-3), var(--panel-2));
+}
+.pagamento-cabecalho {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 22px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--borda);
+}
+.pagamento-icone {
+  font-size: 1.8rem;
+  flex-shrink: 0;
+  width: 52px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--laranja-fraco);
+  border: 1px solid rgba(185,255,63,.25);
+  border-radius: var(--raio-peq);
+}
+.pagamento-passos {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.pagamento-passo {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+.pagamento-passo-num {
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--laranja);
+  color: #0e150a;
+  font-weight: 800;
+  font-family: var(--fonte-titulo);
+  border-radius: var(--raio-pill);
+  font-size: .92rem;
+}
+.pagamento-passo strong {
+  color: #fff;
+  font-family: var(--fonte-titulo);
+  font-size: .98rem;
+  display: block;
+  margin-bottom: 4px;
+}
+.pagamento-passo p { margin: 0 0 10px; font-size: .9rem; }
+.pagamento-chave {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  background: var(--bg-2);
+  border: 1px solid var(--borda-forte);
+  padding: 10px 14px;
+  border-radius: var(--raio-peq);
+  margin-bottom: 8px;
+}
+.pagamento-chave code {
+  font-family: "Courier New", monospace;
+  color: var(--laranja);
+  font-weight: 700;
+  font-size: .92rem;
+  word-break: break-all;
+}
+.botao-copiar { padding: 8px 16px; font-size: .82rem; }
+.pagamento-obs { font-size: .78rem !important; color: var(--texto-fraco-2) !important; margin-top: 6px !important; }
+.mensagem-pronta-oculta {
+  position: absolute;
+  width: 1px; height: 1px;
+  opacity: 0; pointer-events: none;
+}
 
 /* ---------- Pedidos (vendas) ---------- */
 .pedido-cabecalho {
